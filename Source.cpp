@@ -87,6 +87,8 @@ void PayrollProcessing::loadOrganisationRecords(string filename)
 	}
 	inputfile.close(); //*****C
 
+	cout << "===================================================================" << endl; //COMMENT OUT LATER
+	cout << "ORGANISATION RECORDS\n-----------------------------------------" << endl;
 	for(int x =0; x< int(OrganisationRecords.size()-1) ;x++) ///COMMENT OUT LATER
 	{
 		cout << OrganisationRecords[x].employeeNumber << " " << OrganisationRecords[x].name << " " << OrganisationRecords[x].department << " " << OrganisationRecords[x].occupation << endl;
@@ -104,6 +106,7 @@ void PayrollProcessing::loadHRRecords(string filename)
 		getline(inputfile, HRProcessing.ninumber);
 		HRRecords.push_back(HRProcessing);
 	}
+	cout << "============================================================" << endl; //COMMENT OUT LATER
 	cout << "HR RECORDS" << "\n-------------------" << endl; ///COMMENT OUT LATER
 	for (int x = 0; x< int(HRRecords.size() -1); x++) ///COMMENT OUT LATER //
 	{
@@ -121,7 +124,7 @@ void PayrollProcessing::loadPayrollRecords(string filename)
 		inputfile >> PayrollProcessing.employeeNumber >> PayrollProcessing.ninumber >> PayrollProcessing.salary;
 		PayrollRecords.push_back(PayrollProcessing);
 	}
-
+	cout << "====================================================" << endl; //comment out later
 	cout << "PAYROLL RECORDS" << "\n-------------------" << endl; ///COMMENT OUT LATER
 	for (int x = 0; x< int(PayrollRecords.size()-1); x++) ///COMMENT OUT LATER
 	{
@@ -143,6 +146,7 @@ void PayrollProcessing::displayEmployeeOfSalaryGTE(double salary)
 		}
 	}
 }
+
 int main(void)
 {
 	PayrollProcessing payrollProcess;
