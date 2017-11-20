@@ -9,6 +9,8 @@ using namespace std;
 #define ORGANISATIONRECORD "organisation.txt"
 #define HRRECORD "hrRecord.txt"
 #define PAYROLLRECORD "payroll.txt"
+#define TOPENDSALARY 50000.00
+
 class EmployeeNumber 
 {
 private:
@@ -56,21 +58,23 @@ public:
 	void loadHRRecords(string filename);
 	void loadPayrollRecords(string filename);
 	void displayEmployeeOfSalaryGTE(double salary);
+	vector<OrganisationRecord> passOrgRecs(void);
+	vector<HRRecord> passHRRecs(void);
+	vector<PayrollRecord> passPayrollRecs(void);
 	//GTE = Greater Than or Equal to 
 };
-//class FileCheck
-//{
-//private:
-//	ofstream checkFile;
-//	
-//public:
-//	void checkFiles(void);
-//};
-//void FileCheck::checkFiles(void)
-//{
-//	checkFile.open("hello.txt");
-//
-//}
+vector<OrganisationRecord> PayrollProcessing::passOrgRecs(void)
+{
+	return OrganisationRecords;
+}
+vector<HRRecord> PayrollProcessing::passHRRecs(void)
+{
+	return HRRecords;
+}
+vector<PayrollRecord> PayrollProcessing::passPayrollRecs(void)
+{
+	return PayrollRecords;
+}
 void PayrollProcessing::loadOrganisationRecords(string filename)
 {
 	inputfile.open(filename); // *****O
@@ -85,10 +89,7 @@ void PayrollProcessing::loadOrganisationRecords(string filename)
 	}
 	inputfile.close(); //*****C
 
-	for(int x =0; x< int(OrganisationRecords.size()) ;x++) ///COMMENT OUT LATER
-	{
-		cout << OrganisationRecords[x].employeeNumber << " " << OrganisationRecords[x].name << " " << OrganisationRecords[x].department << " " << OrganisationRecords[x].occupation << endl;
-	} //////COMMENT OUT LATER 
+
 }
 void PayrollProcessing::loadHRRecords(string filename)
 {
@@ -102,12 +103,7 @@ void PayrollProcessing::loadHRRecords(string filename)
 		getline(inputfile, HRProcessing.ninumber);
 		HRRecords.push_back(HRProcessing);
 	}
-	cout << "HR RECORDS" << "\n-------------------" << endl; ///COMMENT OUT LATER
-	for (int x = 0; x< int(HRRecords.size() -1); x++) ///COMMENT OUT LATER
-	{
-		
-		cout << HRRecords[x].employeeNumber << " " << HRRecords[x].address << " " << HRRecords[x].phoneumber << " " << HRRecords[x].ninumber << endl;
-	} //////COMMENT OUT LATER 
+	
 	inputfile.close(); //*****C
 }
 void PayrollProcessing::loadPayrollRecords(string filename)
@@ -119,23 +115,89 @@ void PayrollProcessing::loadPayrollRecords(string filename)
 		inputfile >> PayrollProcessing.employeeNumber >> PayrollProcessing.ninumber >> PayrollProcessing.salary;
 		PayrollRecords.push_back(PayrollProcessing);
 	}
-
-	cout << "PAYROLL RECORDS" << "\n-------------------" << endl; ///COMMENT OUT LATER
-	for (int x = 0; x< int(PayrollRecords.size()); x++) ///COMMENT OUT LATER
-	{
-		cout << PayrollRecords[x].employeeNumber << " " << PayrollRecords[x].ninumber << " " << PayrollRecords[x].salary << endl;
-	} //////COMMENT OUT LATER 
 	inputfile.close(); //*****C
 }
 void PayrollProcessing::displayEmployeeOfSalaryGTE(double salary)
 {
-
+	cout << "========================================================" << endl;
+	cout << "EMPLOYEES EARNING OVER " << salary << "\n--------------------" << endl;
+	for (int x = 0; x<int(PayrollRecords.size()-1); x++)
+	{
+		if (PayrollRecords[x].salary > salary)
+		{
+			cout << "Name: " << OrganisationRecords[x].name << "\nAddress: " << HRRecords[x].address << endl;
+			cout << "Department: " << OrganisationRecords[x].department << "\nSalary: " << PayrollRecords[x].salary << endl;
+			cout << "--------------------------------------" << endl;
+		}
+	}
 }
-int main(void)
+class Menu 
+{
+private:
+	void displayOrgRecs(vector<OrganisationRecord>);
+	void displayHRRecs(vector<HRRecord>);
+	void displayPayRecs(vector<PayrollRecord>);
+	int choice = 0;
+public:
+	void displayMenu(void);
+};
+void Menu::displayOrgRecs(vector<OrganisationRecord> OrganisationRecords)
+{
+	cout << "===================================================================" << endl; 
+	cout << "ORGANISATION RECORDS\n-----------------------------------------" << endl;
+	for (int x = 0; x< int(OrganisationRecords.size() - 1); x++) 
+	{
+		cout << OrganisationRecords[x].employeeNumber << " " << OrganisationRecords[x].name << " " << OrganisationRecords[x].department << " " << OrganisationRecords[x].occupation << endl;
+	} 
+}
+void Menu::displayHRRecs(vector<HRRecord> HRRecords)
+{
+	cout << "============================================================" << endl;
+	cout << "HR RECORDS" << "\n-------------------" << endl; 
+	for (int x = 0; x< int(HRRecords.size() - 1); x++) 
+	{
+
+		cout << HRRecords[x].employeeNumber << " " << HRRecords[x].address << " " << HRRecords[x].phoneumber << " " << HRRecords[x].ninumber << endl;
+	} 
+}
+void Menu::displayPayRecs(vector<PayrollRecord> PayrollRecords)
+{
+	cout << "====================================================" << endl;
+	cout << "PAYROLL RECORDS" << "\n-------------------" << endl;
+	for (int x = 0; x< int(PayrollRecords.size() - 1); x++) 
+	{
+		cout << PayrollRecords[x].employeeNumber << " " << PayrollRecords[x].ninumber << " " << PayrollRecords[x].salary << endl;
+	} 
+}
+void Menu::displayMenu(void)
 {
 	PayrollProcessing payrollProcess;
 	payrollProcess.loadOrganisationRecords(ORGANISATIONRECORD);
 	payrollProcess.loadHRRecords(HRRECORD);
 	payrollProcess.loadPayrollRecords(PAYROLLRECORD);
+	while (choice != 5) 
+	{
+		cout << "1: Display Organisation Records." << endl;
+		cout << "2: Display HR Records." << endl;
+		cout << "3: Display Payroll Records." << endl;
+		cout << "4: Display Employees earning over " << TOPENDSALARY << "."<<endl;
+		cout << "5: Exit the program." << endl;
+		cin >> choice;
+		switch (choice)
+		{
+		case 1: displayOrgRecs(payrollProcess.passOrgRecs()); break;
+		case 2: displayHRRecs(payrollProcess.passHRRecs()); break;
+		case 3: displayPayRecs(payrollProcess.passPayrollRecs()); break;
+		case 4: payrollProcess.displayEmployeeOfSalaryGTE(TOPENDSALARY); break;
+		default:
+			break;
+		}
+		cout << endl;
+	}
+}
+int main(void)
+{
+	Menu menu;
+	menu.displayMenu();
 	return 0;
 }

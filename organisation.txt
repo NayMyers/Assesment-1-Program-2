@@ -10,3 +10,11 @@ OS Development
 Fred Blogs
 Project Manager
 Outsourcing
+004
+Steve Maple
+Programmer
+UI Programmer
+005
+Wendy Jackson
+Sales Manager
+Sales
