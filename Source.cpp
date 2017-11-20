@@ -9,6 +9,8 @@ using namespace std;
 #define ORGANISATIONRECORD "organisation.txt"
 #define HRRECORD "hrRecord.txt"
 #define PAYROLLRECORD "payroll.txt"
+#define TOPENDSALARY 50000.00
+
 class EmployeeNumber 
 {
 private:
@@ -103,7 +105,7 @@ void PayrollProcessing::loadHRRecords(string filename)
 		HRRecords.push_back(HRProcessing);
 	}
 	cout << "HR RECORDS" << "\n-------------------" << endl; ///COMMENT OUT LATER
-	for (int x = 0; x< int(HRRecords.size() -1); x++) ///COMMENT OUT LATER
+	for (int x = 0; x< int(HRRecords.size() -1); x++) ///COMMENT OUT LATER //STRANGE BUG!! Why is it printing out one extra of the last record??
 	{
 		
 		cout << HRRecords[x].employeeNumber << " " << HRRecords[x].address << " " << HRRecords[x].phoneumber << " " << HRRecords[x].ninumber << endl;
@@ -129,7 +131,11 @@ void PayrollProcessing::loadPayrollRecords(string filename)
 }
 void PayrollProcessing::displayEmployeeOfSalaryGTE(double salary)
 {
-
+	cout << "EMPLOYEES EARNING OVER " << TOPENDSALARY << "\n--------------------" << endl;
+	for (int x = 0; x<int(PayrollRecords.size()); x++)
+	{
+		if (PayrollRecords[x].salary > salary) { cout << "THIS PERSON EARNS BIG BUCKS!: " << PayrollRecords[x].employeeNumber << endl; }
+	}
 }
 int main(void)
 {
@@ -137,5 +143,6 @@ int main(void)
 	payrollProcess.loadOrganisationRecords(ORGANISATIONRECORD);
 	payrollProcess.loadHRRecords(HRRECORD);
 	payrollProcess.loadPayrollRecords(PAYROLLRECORD);
+	payrollProcess.displayEmployeeOfSalaryGTE(TOPENDSALARY);
 	return 0;
 }
