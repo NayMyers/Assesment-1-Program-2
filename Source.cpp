@@ -123,7 +123,7 @@ void PayrollProcessing::displayEmployeeOfSalaryGTE(double salary)
 	cout << "EMPLOYEES EARNING OVER " << salary << "\n--------------------" << endl;
 	for (int x = 0; x<int(PayrollRecords.size() - 1); x++)
 	{
-		if (PayrollRecords[x].salary > salary)
+		if (PayrollRecords[x].salary >= salary)
 		{
 			cout << "Name: " << OrganisationRecords[x].name << "\nAddress: " << HRRecords[x].address << endl;
 			cout << "Department: " << OrganisationRecords[x].department << "\nSalary: " << PayrollRecords[x].salary << endl;
@@ -188,7 +188,7 @@ void Menu::displayMenu(void)
 			cout << "1: Display Organisation Records." << endl;
 			cout << "2: Display HR Records." << endl;
 			cout << "3: Display Payroll Records." << endl;
-			cout << "4: Display Employees earning over " << "????" << "." << endl;
+			cout << "4: Display Employees earning over or equal to " << "????" << "." << endl;
 			cout << "5: Toggle visible options on/off" << endl;
 			cout << "6: Exit the program." << endl;
 		}
