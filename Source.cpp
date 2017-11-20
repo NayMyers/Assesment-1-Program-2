@@ -11,7 +11,7 @@ using namespace std;
 #define PAYROLLRECORD "payroll.txt"
 #define TOPENDSALARY 50000.00
 
-class EmployeeNumber 
+class EmployeeNumber
 {
 private:
 
@@ -45,7 +45,7 @@ public:
 	string ninumber;
 	double salary;
 };
-class PayrollProcessing 
+class PayrollProcessing
 {
 private:
 	ifstream inputfile;
@@ -86,13 +86,6 @@ void PayrollProcessing::loadOrganisationRecords(string filename)
 		OrganisationRecords.push_back(organisationProcessing);
 	}
 	inputfile.close(); //*****C
-
-	cout << "===================================================================" << endl; //COMMENT OUT LATER
-	cout << "ORGANISATION RECORDS\n-----------------------------------------" << endl;
-	for(int x =0; x< int(OrganisationRecords.size()-1) ;x++) ///COMMENT OUT LATER
-	{
-		cout << OrganisationRecords[x].employeeNumber << " " << OrganisationRecords[x].name << " " << OrganisationRecords[x].department << " " << OrganisationRecords[x].occupation << endl;
-	} //////COMMENT OUT LATER 
 }
 void PayrollProcessing::loadHRRecords(string filename)
 {
@@ -106,13 +99,6 @@ void PayrollProcessing::loadHRRecords(string filename)
 		getline(inputfile, HRProcessing.ninumber);
 		HRRecords.push_back(HRProcessing);
 	}
-	cout << "============================================================" << endl; //COMMENT OUT LATER
-	cout << "HR RECORDS" << "\n-------------------" << endl; ///COMMENT OUT LATER
-	for (int x = 0; x< int(HRRecords.size() -1); x++) ///COMMENT OUT LATER //
-	{
-		
-		cout << HRRecords[x].employeeNumber << " " << HRRecords[x].address << " " << HRRecords[x].phoneumber << " " << HRRecords[x].ninumber << endl;
-	} //////COMMENT OUT LATER 
 	inputfile.close(); //*****C
 }
 void PayrollProcessing::loadPayrollRecords(string filename)
@@ -124,19 +110,13 @@ void PayrollProcessing::loadPayrollRecords(string filename)
 		inputfile >> PayrollProcessing.employeeNumber >> PayrollProcessing.ninumber >> PayrollProcessing.salary;
 		PayrollRecords.push_back(PayrollProcessing);
 	}
-	cout << "====================================================" << endl; //comment out later
-	cout << "PAYROLL RECORDS" << "\n-------------------" << endl; ///COMMENT OUT LATER
-	for (int x = 0; x< int(PayrollRecords.size()-1); x++) ///COMMENT OUT LATER
-	{
-		cout << PayrollRecords[x].employeeNumber << " " << PayrollRecords[x].ninumber << " " << PayrollRecords[x].salary << endl;
-	} //////COMMENT OUT LATER 
 	inputfile.close(); //*****C
 }
 void PayrollProcessing::displayEmployeeOfSalaryGTE(double salary)
 {
 	cout << "========================================================" << endl;
-	cout << "EMPLOYEES EARNING OVER " << salary << "\n--------------------" << endl;
-	for (int x = 0; x<int(PayrollRecords.size()-1); x++)
+	cout << "EMPLOYEES EARNING OVER £" << salary << "\n--------------------" << endl;
+	for (int x = 0; x<int(PayrollRecords.size() - 1); x++)
 	{
 		if (PayrollRecords[x].salary > salary)
 		{
