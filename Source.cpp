@@ -87,7 +87,7 @@ void PayrollProcessing::loadOrganisationRecords(string filename)
 	}
 	inputfile.close(); //*****C
 
-	for(int x =0; x< int(OrganisationRecords.size()) ;x++) ///COMMENT OUT LATER
+	for(int x =0; x< int(OrganisationRecords.size()-1) ;x++) ///COMMENT OUT LATER
 	{
 		cout << OrganisationRecords[x].employeeNumber << " " << OrganisationRecords[x].name << " " << OrganisationRecords[x].department << " " << OrganisationRecords[x].occupation << endl;
 	} //////COMMENT OUT LATER 
@@ -105,7 +105,7 @@ void PayrollProcessing::loadHRRecords(string filename)
 		HRRecords.push_back(HRProcessing);
 	}
 	cout << "HR RECORDS" << "\n-------------------" << endl; ///COMMENT OUT LATER
-	for (int x = 0; x< int(HRRecords.size() -1); x++) ///COMMENT OUT LATER //STRANGE BUG!! Why is it printing out one extra of the last record??
+	for (int x = 0; x< int(HRRecords.size() -1); x++) ///COMMENT OUT LATER //
 	{
 		
 		cout << HRRecords[x].employeeNumber << " " << HRRecords[x].address << " " << HRRecords[x].phoneumber << " " << HRRecords[x].ninumber << endl;
@@ -123,7 +123,7 @@ void PayrollProcessing::loadPayrollRecords(string filename)
 	}
 
 	cout << "PAYROLL RECORDS" << "\n-------------------" << endl; ///COMMENT OUT LATER
-	for (int x = 0; x< int(PayrollRecords.size()); x++) ///COMMENT OUT LATER
+	for (int x = 0; x< int(PayrollRecords.size()-1); x++) ///COMMENT OUT LATER
 	{
 		cout << PayrollRecords[x].employeeNumber << " " << PayrollRecords[x].ninumber << " " << PayrollRecords[x].salary << endl;
 	} //////COMMENT OUT LATER 
@@ -131,10 +131,16 @@ void PayrollProcessing::loadPayrollRecords(string filename)
 }
 void PayrollProcessing::displayEmployeeOfSalaryGTE(double salary)
 {
-	cout << "EMPLOYEES EARNING OVER " << TOPENDSALARY << "\n--------------------" << endl;
-	for (int x = 0; x<int(PayrollRecords.size()); x++)
+	cout << "========================================================" << endl;
+	cout << "EMPLOYEES EARNING OVER " << salary << "\n--------------------" << endl;
+	for (int x = 0; x<int(PayrollRecords.size()-1); x++)
 	{
-		if (PayrollRecords[x].salary > salary) { cout << "THIS PERSON EARNS BIG BUCKS!: " << PayrollRecords[x].employeeNumber << endl; }
+		if (PayrollRecords[x].salary > salary)
+		{
+			cout << "Name: " << OrganisationRecords[x].name << "\nAddress: " << HRRecords[x].address << endl;
+			cout << "Department: " << OrganisationRecords[x].department << "\nSalary: " << PayrollRecords[x].salary << endl;
+			cout << "--------------------------------------" << endl;
+		}
 	}
 }
 int main(void)
