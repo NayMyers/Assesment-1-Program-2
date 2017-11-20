@@ -11,7 +11,7 @@ using namespace std;
 #define PAYROLLRECORD "payroll.txt"
 #define TOPENDSALARY 50000.00
 
-class EmployeeNumber 
+class EmployeeNumber
 {
 private:
 
@@ -45,7 +45,7 @@ public:
 	string ninumber;
 	double salary;
 };
-class PayrollProcessing 
+class PayrollProcessing
 {
 private:
 	ifstream inputfile;
@@ -103,7 +103,7 @@ void PayrollProcessing::loadHRRecords(string filename)
 		getline(inputfile, HRProcessing.ninumber);
 		HRRecords.push_back(HRProcessing);
 	}
-	
+
 	inputfile.close(); //*****C
 }
 void PayrollProcessing::loadPayrollRecords(string filename)
@@ -121,7 +121,7 @@ void PayrollProcessing::displayEmployeeOfSalaryGTE(double salary)
 {
 	cout << "========================================================" << endl;
 	cout << "EMPLOYEES EARNING OVER " << salary << "\n--------------------" << endl;
-	for (int x = 0; x<int(PayrollRecords.size()-1); x++)
+	for (int x = 0; x<int(PayrollRecords.size() - 1); x++)
 	{
 		if (PayrollRecords[x].salary > salary)
 		{
@@ -131,43 +131,45 @@ void PayrollProcessing::displayEmployeeOfSalaryGTE(double salary)
 		}
 	}
 }
-class Menu 
+class Menu
 {
 private:
 	void displayOrgRecs(vector<OrganisationRecord>);
 	void displayHRRecs(vector<HRRecord>);
 	void displayPayRecs(vector<PayrollRecord>);
 	int choice = 0;
+	double employeeTopEndSalary = 0;
+	bool menuYorN = true;
 public:
 	void displayMenu(void);
 };
 void Menu::displayOrgRecs(vector<OrganisationRecord> OrganisationRecords)
 {
-	cout << "===================================================================" << endl; 
+	cout << "===================================================================" << endl;
 	cout << "ORGANISATION RECORDS\n-----------------------------------------" << endl;
-	for (int x = 0; x< int(OrganisationRecords.size() - 1); x++) 
+	for (int x = 0; x< int(OrganisationRecords.size() - 1); x++)
 	{
 		cout << OrganisationRecords[x].employeeNumber << " " << OrganisationRecords[x].name << " " << OrganisationRecords[x].department << " " << OrganisationRecords[x].occupation << endl;
-	} 
+	}
 }
 void Menu::displayHRRecs(vector<HRRecord> HRRecords)
 {
 	cout << "============================================================" << endl;
-	cout << "HR RECORDS" << "\n-------------------" << endl; 
-	for (int x = 0; x< int(HRRecords.size() - 1); x++) 
+	cout << "HR RECORDS" << "\n-------------------" << endl;
+	for (int x = 0; x< int(HRRecords.size() - 1); x++)
 	{
 
 		cout << HRRecords[x].employeeNumber << " " << HRRecords[x].address << " " << HRRecords[x].phoneumber << " " << HRRecords[x].ninumber << endl;
-	} 
+	}
 }
 void Menu::displayPayRecs(vector<PayrollRecord> PayrollRecords)
 {
 	cout << "====================================================" << endl;
 	cout << "PAYROLL RECORDS" << "\n-------------------" << endl;
-	for (int x = 0; x< int(PayrollRecords.size() - 1); x++) 
+	for (int x = 0; x< int(PayrollRecords.size() - 1); x++)
 	{
 		cout << PayrollRecords[x].employeeNumber << " " << PayrollRecords[x].ninumber << " " << PayrollRecords[x].salary << endl;
-	} 
+	}
 }
 void Menu::displayMenu(void)
 {
@@ -175,24 +177,42 @@ void Menu::displayMenu(void)
 	payrollProcess.loadOrganisationRecords(ORGANISATIONRECORD);
 	payrollProcess.loadHRRecords(HRRECORD);
 	payrollProcess.loadPayrollRecords(PAYROLLRECORD);
-	while (choice != 5) 
+
+	while (choice != 6)
 	{
-		cout << "1: Display Organisation Records." << endl;
-		cout << "2: Display HR Records." << endl;
-		cout << "3: Display Payroll Records." << endl;
-		cout << "4: Display Employees earning over " << TOPENDSALARY << "."<<endl;
-		cout << "5: Exit the program." << endl;
+		if(menuYorN)
+		{
+			cout << "1: Display Organisation Records." << endl;
+			cout << "2: Display HR Records." << endl;
+			cout << "3: Display Payroll Records." << endl;
+			cout << "4: Display Employees earning over " << "????" << "." << endl;
+			cout << "5: Toggle visible options on/off" << endl;
+			cout << "6: Exit the program." << endl;
+		}
+		cout << "Enter choice --> ";
 		cin >> choice;
+		cout << endl;
+
 		switch (choice)
 		{
 		case 1: displayOrgRecs(payrollProcess.passOrgRecs()); break;
 		case 2: displayHRRecs(payrollProcess.passHRRecs()); break;
 		case 3: displayPayRecs(payrollProcess.passPayrollRecs()); break;
-		case 4: payrollProcess.displayEmployeeOfSalaryGTE(TOPENDSALARY); break;
+		case 4:
+			cout << "Enter top end salary --> ";
+			cin >> employeeTopEndSalary;
+			cout << endl;
+			payrollProcess.displayEmployeeOfSalaryGTE(employeeTopEndSalary); break;
+		case 5:
+			menuYorN = !menuYorN;
+			break;
+		case 6:
+			cout << "EXITING" << endl;
+			break;
 		default:
+			cout << "OOPS try again!" << endl;
 			break;
 		}
-		cout << endl;
 	}
 }
 int main(void)
