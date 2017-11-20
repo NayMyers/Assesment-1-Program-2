@@ -151,6 +151,7 @@ void Menu::displayOrgRecs(vector<OrganisationRecord> OrganisationRecords)
 	{
 		cout << OrganisationRecords[x].employeeNumber << " " << OrganisationRecords[x].name << " " << OrganisationRecords[x].department << " " << OrganisationRecords[x].occupation << endl;
 	}
+	cout << "====================================================" << endl;
 }
 void Menu::displayHRRecs(vector<HRRecord> HRRecords)
 {
@@ -161,6 +162,7 @@ void Menu::displayHRRecs(vector<HRRecord> HRRecords)
 
 		cout << HRRecords[x].employeeNumber << " " << HRRecords[x].address << " " << HRRecords[x].phoneumber << " " << HRRecords[x].ninumber << endl;
 	}
+	cout << "====================================================" << endl;
 }
 void Menu::displayPayRecs(vector<PayrollRecord> PayrollRecords)
 {
@@ -170,6 +172,7 @@ void Menu::displayPayRecs(vector<PayrollRecord> PayrollRecords)
 	{
 		cout << PayrollRecords[x].employeeNumber << " " << PayrollRecords[x].ninumber << " " << PayrollRecords[x].salary << endl;
 	}
+	cout << "====================================================" << endl;
 }
 void Menu::displayMenu(void)
 {
