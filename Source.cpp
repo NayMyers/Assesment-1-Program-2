@@ -54,19 +54,6 @@ public:
 	void displayEmployeeOfSalaryGTE(double salary);
 	//GTE = Greater Than or Equal to 
 };
-//class FileCheck
-//{
-//private:
-//	ofstream checkFile;
-//	
-//public:
-//	void checkFiles(void);
-//};
-//void FileCheck::checkFiles(void)
-//{
-//	checkFile.open("hello.txt");
-//
-//}
 void PayrollProcessing::loadOrganisationRecords(string filename)
 {
 	inputfile.open(filename); // *****O
