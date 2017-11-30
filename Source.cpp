@@ -11,14 +11,8 @@ using namespace std;
 #define PAYROLLRECORD "payroll.txt"
 #define TOPENDSALARY 50000.00
 
-class EmployeeNumber
-{
-private:
 
-public:
-	string employeeNumber;
-};
-class OrganisationRecord : public EmployeeNumber
+class OrganisationRecord 
 {
 private:
 
@@ -28,7 +22,7 @@ public:
 	string department;
 
 };
-class HRRecord : public EmployeeNumber
+class HRRecord
 {
 private:
 
@@ -37,7 +31,7 @@ public:
 	string phoneumber;
 	string ninumber;
 };
-class PayrollRecord : public EmployeeNumber
+class PayrollRecord 
 {
 private:
 
@@ -76,10 +70,11 @@ public:
 void PayrollProcessing::loadOrganisationRecords(string filename)
 {
 	inputfile.open(filename); // *****O
+	string placeholder = "";
 	OrganisationRecord organisationProcessing;
 	while (inputfile)
 	{
-		getline(inputfile, organisationProcessing.employeeNumber);
+		getline(inputfile, placeholder);
 		getline(inputfile, organisationProcessing.name);
 		getline(inputfile, organisationProcessing.occupation);
 		getline(inputfile, organisationProcessing.department);
@@ -90,10 +85,11 @@ void PayrollProcessing::loadOrganisationRecords(string filename)
 void PayrollProcessing::loadHRRecords(string filename)
 {
 	inputfile.open(filename); //*****O
+	string placeholder = "";
 	HRRecord HRProcessing;
 	while (inputfile)
 	{
-		getline(inputfile, HRProcessing.employeeNumber);
+		getline(inputfile, placeholder);
 		getline(inputfile, HRProcessing.address);
 		getline(inputfile, HRProcessing.phoneumber);
 		getline(inputfile, HRProcessing.ninumber);
@@ -104,10 +100,11 @@ void PayrollProcessing::loadHRRecords(string filename)
 void PayrollProcessing::loadPayrollRecords(string filename)
 {
 	inputfile.open(filename); //*****O
+	string placeholder = "";
 	PayrollRecord PayrollProcessing;
 	while (inputfile)
 	{
-		inputfile >> PayrollProcessing.employeeNumber >> PayrollProcessing.ninumber >> PayrollProcessing.salary;
+		inputfile >> placeholder >> PayrollProcessing.ninumber >> PayrollProcessing.salary;
 		PayrollRecords.push_back(PayrollProcessing);
 	}
 	inputfile.close(); //*****C
@@ -115,7 +112,7 @@ void PayrollProcessing::loadPayrollRecords(string filename)
 void PayrollProcessing::displayEmployeeOfSalaryGTE(double salary)
 {
 	cout << "========================================================" << endl;
-	cout << "EMPLOYEES EARNING OVER £" << salary << "\n--------------------" << endl;
+	cout << "EMPLOYEES EARNING OVER " << salary << "\n--------------------" << endl;
 	for (int x = 0; x<int(PayrollRecords.size() - 1); x++)
 	{
 		if (PayrollRecords[x].salary > salary)
